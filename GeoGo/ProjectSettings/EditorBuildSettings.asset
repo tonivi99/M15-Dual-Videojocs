@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ValidarFotos.unity
     guid: 8cb98cf6686ca5f4fa96c990d71dd318
+  - enabled: 1
+    path: Assets/Scenes/Notificacions Profe.unity
+    guid: b5eafa63a294bd14c9861e30a245a1b2
   m_configObjects: {}

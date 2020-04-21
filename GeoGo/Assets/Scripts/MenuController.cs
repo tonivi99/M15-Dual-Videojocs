@@ -37,4 +37,7 @@ public class MenuController : MonoBehaviour
     public void validarFoto(){
         SceneManager.LoadScene("ValidarFotos");
     }
+    public void NotificacioProfe(){
+        SceneManager.LoadScene("Notificacions Profe");
+    }
 }

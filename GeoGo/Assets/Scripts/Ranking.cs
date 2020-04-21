@@ -52,9 +52,6 @@ public class Ranking : MonoBehaviour
             string contador = GetDataValue(items[i], "CONTADOR:");
             string bucle = GetDataValue(fibucle[0], "bucle:");
             result = Int32.Parse(bucle);
-            //Debug.Log(result);
-           // print(nom);
-            //print(contador);
             StartCoroutine(CrearText(nom, contador));
             i++;
         }

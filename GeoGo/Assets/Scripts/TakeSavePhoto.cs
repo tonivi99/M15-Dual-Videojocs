@@ -59,6 +59,7 @@ public class TakeSavePhoto : MonoBehaviour
         string username = System.IO.File.ReadAllText("C:/FotosGeo/arxiusdirectory/nomusuari.txt");
         string grup = System.IO.File.ReadAllText("C:/FotosGeo/arxiusdirectory/grup.txt");
         System.IO.File.WriteAllBytes(savePath + nomPedra.text + "_"+ username + "_" + grup /*+ captureCounter.ToString()*/ + ".png", snap.EncodeToPNG());
+
        // ++captureCounter;
     }
 }

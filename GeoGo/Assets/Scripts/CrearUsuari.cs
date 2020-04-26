@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class CrearUsuari : MonoBehaviour
 {
-    string createUserUrl = "http://localhost/flors/alta_usu.php";
-    //string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~geogo/alta_usu.php";
+    //string createUserUrl = "http://localhost/flors/alta_usu.php";
+    string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/alta_usu.php";
     public InputField inputUsername;
     public InputField inputPassword;
     public InputField inputGrup;

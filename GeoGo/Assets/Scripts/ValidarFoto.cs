@@ -1,15 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
+//using static System.Net.Mime.MediaTypeNames;
 
 public class ValidarFoto : MonoBehaviour
 {
-
-    string createUserUrl = "http://localhost/flors/alta_profe.php";
-
-
     public RawImage imageShot;
 
     Texture2D texture2D;
@@ -18,70 +17,67 @@ public class ValidarFoto : MonoBehaviour
 
     public Text nomUsu;
 
-   // your filename
-
-    
-    
-   // Image pictureBox1 = Image.FromFile("ieiva_pm_proba.jpg"); 
-   
+    public string nom;
+    public string grup;
+    public string usu;
 
     public string[] items;
     // Start is called before the first frame update
     void Start()
     {
-        string grup = System.IO.File.ReadAllText("C:/FotosGeo/arxiusdirectory/grup.txt");
-        //CreateUser(grup);
-        //pictureBox1 = System.Drawing.Image.FromFile(path);
-        //texture2D = LoadPNG(path);
-        //imageShot.texture = texture2D;
-        //imageShot.texture = texture2D as Texture;
+        //string grup = System.IO.File.ReadAllText("C:/FotosGeo/arxiusdirectory/grup.txt");
+        StartCoroutine(IECert());
 
     }
-
-    // Update is called once per frame
-    /* public void CreateUser (string grup){
-        WWWForm form = new WWWForm();
-        form.AddField("grupPostAlta",grup);
-        WWW www = new WWW (createUserUrl,form);
-
-    }
-    */
       
     	IEnumerator IECert(){
+        string grupLlegir = System.IO.File.ReadAllText("C:/FotosGeo/arxiusdirectory/grup.txt");
         int i = 0;
-		WWW itemsData = new WWW("http://localhost/flors/validarfotos.php");
+        WWWForm form = new WWWForm();
+        form.AddField("grupPostAlta", grupLlegir);
+		WWW itemsData = new WWW("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/validarfotos.php",form);
 		yield return itemsData;
 		string itemsDataString = itemsData.text;
 		print (itemsDataString);
 		items = itemsDataString.Split(';');
-        string nom = GetDataValue(items[i], "NOM:");
-        string grup = GetDataValue(items[i], "ID_GRUP:");
-        string usu = GetDataValue(items[i], "ID_USU:");
+        nom = GetDataValue(items[i], "NOM:");
+        grup = GetDataValue(items[i], "ID_GRUP:");
+        usu = GetDataValue(items[i], "ID_USU:");
         //print(GetDataValue(items[i], "ID_USU:"));
          
         i++;
-        StartCoroutine(IEAgafarnomusu(nom));
-        enviarDADESCert(nom,grup,usu);
+        StartCoroutine(IEAgafarnomusu(nom, usu, grup));
+        //enviarDADESCert(nom,grup,usu);
 
         
 	}
 
-    /*public string agafarnomusu(string id_usuari){
-        WWW itemsData = new WWW("http://localhost/flors/validarfotos.php");
-		yield return itemsData;
-		string itemsDataString = itemsData.text;
-		print (itemsDataString);
-    }
-    */
-    public void probaecho(){
-        //StartCoroutine(IEAgafarnomusu());
-    }
-    IEnumerator IEAgafarnomusu(string nomroca){
-        WWW itemsData = new WWW("http://localhost/flors/retornar_nomusu.php");
+    IEnumerator IEAgafarnomusu(string nomroca,string id_usu, string id_grup){
+        int id_usuari = Int32.Parse(id_usu);
+        WWWForm form = new WWWForm();
+        form.AddField("id_usuPost", id_usuari);
+        WWW itemsData = new WWW("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/retornar_nomusu.php",form);
 		yield return itemsData;
 		string itemsDataString = itemsData.text.Trim();
 		Debug.Log(itemsDataString);
-        mostrarinfo(nomroca, itemsDataString);
+        //proba 2 lineas de abaix modificades
+        descargarFotos(nomroca, id_usu, id_grup, itemsDataString);
+       
+    }
+
+     public void descargarFotos(string nomF, string id_grup, string id_usu, string nomUsuari){
+        string Nomgrup = System.IO.File.ReadAllText("C:/FotosGeo/arxiusdirectory/grup.txt");
+        //string imageUrl = "https://geogo.s3.amazonaws.com/2/98/corn3_pep_kakita.png";
+        string imageUrl = "https://geogo.s3.amazonaws.com/" + id_usu + "/" + id_grup + "/" + nomF + "_" + nomUsuari + "_" + Nomgrup + ".png";
+        Debug.Log(imageUrl);
+        //string localFilename = "C:/DescargasFotosGeo/corn2_pep_kakita.png";
+        string localFilename = "C:/DescargasFotosGeo/" + nomF + "_" + nomUsuari + "_" + Nomgrup + ".png"; 
+        
+        using(WebClient client = new WebClient()) { 
+            client.DownloadFile(imageUrl, localFilename); 
+        }
+
+         mostrarinfo(nomF, nomUsuari, Nomgrup);
 
     }
 
@@ -92,40 +88,22 @@ public class ValidarFoto : MonoBehaviour
         form.AddField("id_usuPOST",usu);
         form.AddField("correcte",cert());
         form.AddField("validada",1);
-        WWW www = new WWW ("http://localhost/flors/correcte_validar.php",form);
+        WWW www = new WWW ("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/correcte_validar.php",form);
     }
 
-    public void mostrarinfo(string nom, string nom_usu){
+    public void mostrarinfo(string nom, string nom_usu, string nomGrup){
         nomPedra.text = nom;
         nomUsu.text = nom_usu;
-        mostrarFoto(nom,nom_usu);
+        mostrarFoto(nom,nom_usu, nomGrup);
     }
 
    
-  public void mostrarFoto(string nom, string nom_usu){
-        string grup = System.IO.File.ReadAllText("C:/FotosGeo/arxiusdirectory/grup.txt");
-        string path = "C:/FotosGeo/" + nom + "_" + nom_usu + "_" + grup +".png";
+  public void mostrarFoto(string nomPedra, string nom_usu, string nomGrup){
+
+        string path = "C:/DescargasFotosGeo/" + nomPedra + "_" + nom_usu + "_" + nomGrup + ".png"; 
         texture2D = LoadPNG(path);
         imageShot.texture = texture2D;
     }
-
-    IEnumerator IEFals(){
-        int i = 0;
-		WWW itemsData = new WWW("http://localhost/flors/validarfotos.php");
-		yield return itemsData;
-		string itemsDataString = itemsData.text;
-		print (itemsDataString);
-		items = itemsDataString.Split(';');
-        string nom = GetDataValue(items[i], "NOM:");
-        string grup = GetDataValue(items[i], "ID_GRUP:");
-        string usu = GetDataValue(items[i], "ID_USU:");
-        //print(GetDataValue(items[i], "ID_USU:"));
-        i++;
-
-        enviarDADESFals(nom,grup,usu);
-
-        
-	}
 
     public void enviarDADESFals(string nom, string grup, string usu){
          WWWForm form = new WWWForm();
@@ -134,14 +112,9 @@ public class ValidarFoto : MonoBehaviour
         form.AddField("id_usuPOST",usu);
         form.AddField("correcte",fals());
         form.AddField("validada",1);
-        WWW www = new WWW ("http://localhost/flors/correcte_validar.php",form);
+        WWW www = new WWW ("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/correcte_validar.php",form);
     }
     
-
-    /*public void EnviarDades(){
-        StartCoroutine("enviarDADES");
-    }
-    */
 
 	public string GetDataValue(string data, string index){
 		string value = data.Substring(data.IndexOf(index)+index.Length);
@@ -149,10 +122,13 @@ public class ValidarFoto : MonoBehaviour
 		return value;
 	}
     public void CertONCLICK(){
+        //StartCoroutine(IECert());
+        enviarDADESCert(nom,grup,usu);
         StartCoroutine(IECert());
     }
     public void FalsONCLICK(){
-        StartCoroutine(IEFals());
+        enviarDADESFals(nom,grup,usu);
+        StartCoroutine(IECert());
     }
 
     public void fotoCorrecte(){
@@ -161,7 +137,7 @@ public class ValidarFoto : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("validada",validada);
         form.AddField("correcte",correcte);
-        WWW www = new WWW ("http://localhost/flors/correcte_validar.php",form);
+        WWW www = new WWW ("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/correcte_validar.php",form);
     }
     public void fotoIncorrecte(){
         int correcte = 1;
@@ -189,7 +165,7 @@ public class ValidarFoto : MonoBehaviour
      if (File.Exists(filePath))     {
          fileData = File.ReadAllBytes(filePath);
          tex = new Texture2D(2, 2);
-         tex.LoadImage(fileData); //..this will auto-resize the texture dimensions.
+         tex.LoadImage(fileData); 
      }
      return tex;
  }

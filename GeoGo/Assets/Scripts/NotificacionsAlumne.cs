@@ -47,7 +47,7 @@ public class NotificacionsAlumne : MonoBehaviour
             proba = false;
             WWWForm form = new WWWForm();
             form.AddField("input_NomGrup", grup);
-            WWW itemsData = new WWW("http://localhost/flors/notificacioAlumne.php", form);
+            WWW itemsData = new WWW("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/notificacioAlumne.php", form);
             yield return itemsData;
             string itemsDataString = itemsData.text;
             items = itemsDataString.Split(';');

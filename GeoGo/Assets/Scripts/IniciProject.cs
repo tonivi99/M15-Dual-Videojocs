@@ -22,7 +22,7 @@ public class IniciProject : MonoBehaviour
 
 
 
-    string LoginURL = "http://localhost/flors/login.php";
+    string LoginURL = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/login.php";
     private bool ok_bbdd = false;
      private String dataPath = "C:/FotosGeo/arxiusdirectory";
 

@@ -8,8 +8,8 @@ using UnityEngine.SceneManagement;
 
 public class CrearProfessor : MonoBehaviour
 {
-    string createUserUrl = "http://localhost/flors/alta_profe.php";
-    //string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~geogo/alta_usu.php";
+    //string createUserUrl = "http://localhost/flors/alta_profe.php";
+    string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/alta_profe.php";
     public InputField inputUsername;
     public InputField inputPassword;
     public InputField inputGrup;

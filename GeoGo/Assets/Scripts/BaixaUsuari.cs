@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class BaixaUsuari : MonoBehaviour
 {
-    string createUserUrl = "http://localhost/flors/baixa_usuari.php";
-    //string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~geogo/baixa_usuari.php";
+    //string createUserUrl = "http://localhost/flors/baixa_usuari.php";
+    string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/baixa_usuari.php";
     public InputField inputUsernameBaixa;
     public InputField inputGrupBaixa;
 

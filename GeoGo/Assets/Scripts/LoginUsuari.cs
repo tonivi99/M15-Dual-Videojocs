@@ -18,7 +18,7 @@ public class LoginUsuari : MonoBehaviour
     //public LoginUsuari login;
 
     public Text TextDeLogin;
-    string LoginURL = "http://localhost/flors/login.php";
+    string LoginURL = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/login.php";
     //string LoginURL = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~geogo/login.php";
     // Start is called before the first frame update
     void Start()

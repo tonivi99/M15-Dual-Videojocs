@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class ModificarUsuari : MonoBehaviour
 {
-    string createUserUrl = "http://localhost/flors/modificar_usuari.php";
-    //string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~geogo/modificar_usuari.php";
+    //string createUserUrl = "http://localhost/flors/modificar_usuari.php";
+    string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/modificar_usuari.php";
     public InputField inputUsernameModificar;
     public InputField inputGrupModificar;
     public InputField inputPasswordModificar;

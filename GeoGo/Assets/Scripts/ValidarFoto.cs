@@ -5,7 +5,6 @@ using System.IO;
 using System.Net;
 using UnityEngine;
 using UnityEngine.UI;
-//using static System.Net.Mime.MediaTypeNames;
 
 public class ValidarFoto : MonoBehaviour
 {
@@ -122,7 +121,6 @@ public class ValidarFoto : MonoBehaviour
 		return value;
 	}
     public void CertONCLICK(){
-        //StartCoroutine(IECert());
         enviarDADESCert(nom,grup,usu);
         StartCoroutine(IECert());
     }
@@ -145,7 +143,7 @@ public class ValidarFoto : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("correcte",correcte);
         form.AddField("validada",validada);
-        WWW www = new WWW ("http://localhost/flors/correcte_validar.php",form);
+        WWW www = new WWW ("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/correcte_validar.php",form);
     }
     
     public int cert (){

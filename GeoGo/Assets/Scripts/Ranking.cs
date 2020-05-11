@@ -16,7 +16,7 @@ public class Ranking : MonoBehaviour
 
     int posicio = 0;
 
-    string createGrupUrl = "http://localhost/flors/id_grup.php";
+    string createGrupUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/id_grup.php";
 
     void Start()
     {
@@ -43,7 +43,7 @@ public class Ranking : MonoBehaviour
             proba = false;
             WWWForm form = new WWWForm();
             form.AddField("input_NomGrup", grup);
-            WWW itemsData = new WWW("http://localhost/flors/rankingbe.php", form);
+            WWW itemsData = new WWW("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/rankingbe.php", form);
             yield return itemsData;
             string itemsDataString = itemsData.text;
             items = itemsDataString.Split(';');
@@ -61,7 +61,7 @@ public class Ranking : MonoBehaviour
         {
             WWWForm form = new WWWForm();
             form.AddField("id_usuari", username);
-            WWW www = new WWW("http://localhost/flors/retornarnom.php", form);
+            WWW www = new WWW("http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/retornarnom.php", form);
             yield return www;
             string nomusuari = www.text.Trim();
             Text tempTextBox = Instantiate(DistanceText, new Vector3(461, 1431 - posicio, 0), Quaternion.identity) as Text;

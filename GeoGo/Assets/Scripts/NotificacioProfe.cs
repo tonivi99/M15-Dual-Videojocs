@@ -7,7 +7,7 @@ public class NotificacioProfe : MonoBehaviour
 {
 
     string grup = System.IO.File.ReadAllText("C:/FotosGeo/arxiusdirectory/grup.txt");
-    string createUserUrl = "http://localhost/flors/notificacioProfe.php";
+    string createUserUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/notificacioProfe.php";
     public InputField inputNotificacio;
     // Start is called before the first frame update
    public void buttonNotificacioProfe(){

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Medalles : MonoBehaviour
 {
-    string LoginURL = "http://localhost/flors/medalles.php";
+    string LoginURL = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/medalles.php";
 
     public GameObject medalla1;
     public GameObject medalla2;

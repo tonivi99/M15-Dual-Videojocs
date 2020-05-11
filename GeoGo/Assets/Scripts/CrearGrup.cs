@@ -7,7 +7,8 @@ public class CrearGrup : MonoBehaviour
 {
 
     public GameObject activarGrupGO;
-    string createGrupUrl = "http://localhost/flors/crear_grup.php";
+    //string createGrupUrl = "http://localhost/flors/crear_grup.php";
+    string createGrupUrl = "http://ec2-18-210-22-233.compute-1.amazonaws.com/~planta/crear_grup.php";
     public InputField inputGrup;
     // Start is called before the first frame update
   public void buttonRegistrar(){
